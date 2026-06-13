@@ -23,8 +23,10 @@ export default function LoadingScreen() {
     // (Optional: can be disabled to show loader every refresh for maximum WOW factor)
     const hasLoaded = sessionStorage.getItem("ecomxpert-loaded");
     if (hasLoaded) {
-      setProgress(100);
-      setIsDone(true);
+      window.setTimeout(() => {
+        setProgress(100);
+        setIsDone(true);
+      }, 0);
       return;
     }
 
@@ -70,7 +72,7 @@ export default function LoadingScreen() {
           y: -100,
           transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } 
         }}
-        className="fixed inset-0 z-9999 flex flex-col items-center justify-center bg-[#02040a] px-6 font-mono select-none"
+        className="fixed inset-0 z-[9999] flex select-none flex-col items-center justify-center bg-[#02040a] px-6 font-mono"
       >
         {/* Subtle decorative futuristic corner borders */}
         <div className="absolute top-8 left-8 h-4 w-4 border-t-2 border-l-2 border-cyber-cyan/30" />
@@ -84,7 +86,7 @@ export default function LoadingScreen() {
         <div className="w-full max-w-xl">
           {/* Studio Header Brand */}
           <div className="mb-10 text-center">
-            <h1 className="font-display text-2xl font-bold tracking-wider text-white">
+            <h1 className="font-display text-2xl font-bold tracking-wider text-slate-900">
               ECOM<span className="text-cyber-cyan">XPERT</span>STUDIO
             </h1>
             <p className="mt-1 text-xs tracking-widest text-cyber-cyan/50 uppercase">
@@ -93,7 +95,7 @@ export default function LoadingScreen() {
           </div>
 
           {/* Terminal Box */}
-          <div className="mb-6 rounded-lg border border-cyber-cyan/15 bg-black/60 p-5 shadow-[0_0_20px_rgba(0,240,255,0.03)] backdrop-blur-md">
+          <div className="mb-6 rounded-lg border border-cyber-cyan/15 bg-white/60 p-5 shadow-[0_0_20px_rgba(0,240,255,0.03)] backdrop-blur-md">
             <div className="flex items-center space-x-2 border-b border-cyber-cyan/10 pb-3 text-xs text-cyber-cyan/40">
               <span className="h-2.5 w-2.5 rounded-full bg-red-500/60" />
               <span className="h-2.5 w-2.5 rounded-full bg-yellow-500/60" />
@@ -119,13 +121,13 @@ export default function LoadingScreen() {
 
           {/* Glowing Neon Cyber Progress Slider */}
           <div className="space-y-2">
-            <div className="flex justify-between text-xs font-semibold text-white tracking-widest">
+            <div className="flex justify-between text-xs font-semibold text-slate-900 tracking-widest">
               <span className="text-cyber-cyan/70 uppercase">BOOTING INTERFACE</span>
               <span className="text-cyber-cyan font-mono">{String(progress).padStart(3, "0")}%</span>
             </div>
             
             {/* Outermost container */}
-            <div className="relative h-1.5 w-full rounded-full bg-white/5 overflow-hidden">
+            <div className="relative h-1.5 w-full rounded-full bg-slate-900/5 overflow-hidden">
               {/* Actual Loading Bar */}
               <motion.div
                 className="h-full rounded-full bg-gradient-to-r from-cyber-blue to-cyber-cyan shadow-[0_0_12px_#00f0ff]"
@@ -137,7 +139,7 @@ export default function LoadingScreen() {
         </div>
 
         {/* Studio bottom metadata */}
-        <div className="absolute bottom-8 text-center text-[9px] tracking-widest text-white/30 uppercase">
+        <div className="absolute bottom-8 text-center text-[9px] tracking-widest text-slate-900/30 uppercase">
           &copy; 2026 EcomXpertStudio. All rights reserved. SECURE CYBER SYSTEM.
         </div>
       </motion.div>

@@ -1,143 +1,130 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowUpRight, Github, Twitter, Linkedin, Instagram, Mail, Phone, MapPin } from "lucide-react";
-import { motion } from "framer-motion";
+import { ArrowUpRight, Calendar, Mail, MapPin, Phone } from "lucide-react";
+import { contact, socialLinks } from "@/data/site";
+
+const footerLinks = [
+  { name: "Home", href: "/" },
+  { name: "Services", href: "/services" },
+  { name: "Portfolio", href: "/portfolio" },
+  { name: "About", href: "/about" },
+  { name: "Contact", href: "/contact" },
+];
+
+const capabilities = [
+  "Next.js app experiences",
+  "Custom web applications",
+  "AI chatbot interfaces",
+  "Premium packaging design",
+  "Amazon A+ content",
+  "Motion brand assets",
+];
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
-  const socialLinks = [
-    { icon: <Twitter className="h-4.5 w-4.5" />, href: "https://twitter.com", name: "Twitter" },
-    { icon: <Linkedin className="h-4.5 w-4.5" />, href: "https://linkedin.com", name: "LinkedIn" },
-    { icon: <Instagram className="h-4.5 w-4.5" />, href: "https://instagram.com", name: "Instagram" },
-    { icon: <Github className="h-4.5 w-4.5" />, href: "https://github.com", name: "GitHub" },
-  ];
-
   return (
-    <footer className="relative border-t border-white/5 bg-[#03050c] pt-20 pb-10">
-      {/* Decorative Cyan Gradient Overlay */}
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyber-cyan/20 to-transparent" />
-      <div className="absolute bottom-0 right-0 -z-10 h-72 w-72 rounded-full bg-cyber-cyan/2 blur-[100px] pointer-events-none" />
-
-      <div className="mx-auto w-[90%] max-w-7xl px-4">
-        {/* Footer Top Grid */}
-        <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 md:grid-cols-4">
-          
-          {/* Column 1: Brand Info */}
-          <div className="space-y-6">
-            <Link href="/" className="group flex flex-col focus:outline-none">
-              <span className="font-display text-xl font-black tracking-widest text-white">
-                ECOM<span className="text-cyber-cyan">XPERT</span>STUDIO
+    <footer className="relative border-t border-blue-100 dark:border-white/10 bg-white dark:bg-cyber-darker/80">
+      <div className="section-shell py-14 sm:py-18">
+        <div className="grid gap-10 md:grid-cols-[1.25fr_0.8fr_1fr_1fr]">
+          {/* Brand */}
+          <div>
+            <Link href="/" className="inline-flex flex-col">
+              <span className="font-display text-xl font-black text-slate-900 dark:text-white">
+                Ecom<span className="text-blue-600 dark:text-cyber-cyan">Expert</span>Studio
               </span>
-              <span className="text-[9px] font-bold tracking-widest text-white/40 uppercase">
+              <span className="mt-1 text-[10px] font-semibold uppercase text-slate-400 dark:text-white/40">
                 Digital Growth Experts
               </span>
             </Link>
-            <p className="text-sm leading-relaxed text-white/50 max-w-sm">
-              We design and construct modern digital websites, apps, graphics, and visual products that help brands scale dynamically in the Web3 era.
+            <p className="mt-5 max-w-sm text-sm leading-7 text-slate-600 dark:text-white/60">
+              Premium creative-tech partner for websites, apps, graphic systems, packaging, A+ content, mockups, and cinematic digital assets.
             </p>
-            {/* Social Icons */}
-            <div className="flex space-x-3.5 pt-2">
-              {socialLinks.map((social) => (
-                <motion.a
-                  key={social.name}
-                  href={social.href}
+            <div className="mt-6 flex gap-3">
+              {socialLinks.map(({ icon: Icon, href, label }) => (
+                <a
+                  key={label}
+                  href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileHover={{ scale: 1.1, borderColor: "#00f0ff", color: "#00f0ff" }}
-                  className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-white/3 text-white/60 transition-all hover:shadow-[0_0_12px_rgba(0,240,255,0.15)]"
-                  aria-label={social.name}
+                  className="flex h-10 w-10 items-center justify-center rounded-lg border border-blue-100 dark:border-white/10 bg-blue-50 dark:bg-white/[0.035] text-slate-600 dark:text-white/60 transition-all hover:border-blue-400 dark:hover:border-cyber-cyan/45 hover:text-blue-600 dark:hover:text-cyber-cyan"
+                  aria-label={label}
                 >
-                  {social.icon}
-                </motion.a>
+                  <Icon className="h-4.5 w-4.5" />
+                </a>
               ))}
             </div>
           </div>
 
-          {/* Column 2: Navigation Links */}
-          <div className="space-y-6">
-            <h3 className="font-display text-sm font-bold tracking-wider text-white uppercase border-l-2 border-cyber-cyan pl-3">
-              Agency Hub
-            </h3>
-            <ul className="space-y-3.5">
-              {[
-                { name: "Home Portfolio", href: "/" },
-                { name: "Our Services", href: "/services" },
-                { name: "Case Studies", href: "/portfolio" },
-                { name: "About Studio", href: "/about" },
-                { name: "Contact Team", href: "/contact" },
-              ].map((item) => (
+          {/* Agency links */}
+          <div>
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white">Agency</h3>
+            <ul className="mt-5 grid gap-3">
+              {footerLinks.map((item) => (
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    className="group flex items-center text-sm text-white/50 transition-colors hover:text-cyber-cyan"
+                    className="group inline-flex items-center gap-1.5 text-sm text-slate-600 dark:text-white/60 transition-colors hover:text-blue-600 dark:hover:text-cyber-cyan"
                   >
-                    <span>{item.name}</span>
-                    <ArrowUpRight className="ml-1 h-3 w-3 opacity-0 -translate-y-0.5 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
+                    {item.name}
+                    <ArrowUpRight className="h-3.5 w-3.5 opacity-0 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100" />
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Column 3: Specialized Solutions */}
-          <div className="space-y-6">
-            <h3 className="font-display text-sm font-bold tracking-wider text-white uppercase border-l-2 border-cyber-cyan pl-3">
-              Capabilities
-            </h3>
-            <ul className="space-y-3.5">
-              {[
-                "Next.js App Router Solutions",
-                "Full-stack Web Design",
-                "Custom Mobile & Chatbot Apps",
-                "Amazon A+ Brand Content",
-                "Product Mockups & Packages",
-                "Cinematic Promo Video Reels",
-              ].map((service) => (
-                <li key={service} className="text-sm text-white/50">
-                  {service}
+          {/* Capabilities */}
+          <div>
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white">Capabilities</h3>
+            <ul className="mt-5 grid gap-3">
+              {capabilities.map((item) => (
+                <li key={item} className="flex items-center gap-2 text-sm text-slate-600 dark:text-white/60">
+                  <span className="h-1.5 w-1.5 rounded-full bg-blue-500 dark:bg-cyber-cyan/70" />
+                  {item}
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Column 4: Contact Coordinates */}
-          <div className="space-y-6">
-            <h3 className="font-display text-sm font-bold tracking-wider text-white uppercase border-l-2 border-cyber-cyan pl-3">
-              Get in Touch
-            </h3>
-            <ul className="space-y-4">
-              <li className="flex items-center space-x-3 text-sm text-white/60">
-                <Mail className="h-4.5 w-4.5 text-cyber-cyan/80 shrink-0" />
-                <a href="mailto:hello@ecomxpertstudio.com" className="hover:text-cyber-cyan transition-colors truncate">
-                  hello@ecomxpertstudio.com
+          {/* Contact */}
+          <div>
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white">Get In Touch</h3>
+            <ul className="mt-5 grid gap-4 text-sm text-slate-600 dark:text-white/60">
+              <li className="flex items-center gap-3">
+                <Mail className="h-4.5 w-4.5 shrink-0 text-blue-500 dark:text-cyber-cyan" />
+                <a href={`mailto:${contact.email}`} className="transition-colors hover:text-blue-600 dark:hover:text-cyber-cyan">
+                  {contact.email}
                 </a>
               </li>
-              <li className="flex items-center space-x-3 text-sm text-white/60">
-                <Phone className="h-4.5 w-4.5 text-cyber-cyan/80 shrink-0" />
-                <a href="tel:+1234567890" className="hover:text-cyber-cyan transition-colors">
-                  +1 (234) 567-890
+              <li className="flex items-center gap-3">
+                <Phone className="h-4.5 w-4.5 shrink-0 text-blue-500 dark:text-cyber-cyan" />
+                <a href={`tel:+91${contact.phone}`} className="transition-colors hover:text-blue-600 dark:hover:text-cyber-cyan">
+                  {contact.phoneDisplay}
                 </a>
               </li>
-              <li className="flex items-start space-x-3 text-sm text-white/60">
-                <MapPin className="h-4.5 w-4.5 text-cyber-cyan/80 shrink-0 mt-0.5" />
-                <span>San Francisco, CA<br />Digital Studio Node</span>
+              <li className="flex items-start gap-3">
+                <MapPin className="mt-0.5 h-4.5 w-4.5 shrink-0 text-blue-500 dark:text-cyber-cyan" />
+                <span>{contact.address}</span>
+              </li>
+              <li className="flex items-center gap-3">
+                <Calendar className="h-4.5 w-4.5 shrink-0 text-blue-500 dark:text-cyber-cyan" />
+                <a href={contact.calendlyUrl} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-blue-600 dark:hover:text-cyber-cyan">
+                  Book a Calendly call
+                </a>
               </li>
             </ul>
           </div>
-
         </div>
 
-        {/* Footer Bottom Divider */}
-        <div className="mt-16 border-t border-white/5 pt-8 text-center sm:flex sm:items-center sm:justify-between">
-          <p className="text-xs text-white/30 tracking-wide">
-            &copy; {currentYear} EcomXpertStudio. Built with world-class frameworks & design aesthetics.
-          </p>
-          <div className="mt-4 flex justify-center space-x-6 text-xs text-white/30 sm:mt-0">
-            <a href="#" className="hover:text-cyber-cyan transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-cyber-cyan transition-colors">Terms of Service</a>
-            <a href="#" className="hover:text-cyber-cyan transition-colors">System Status</a>
+        {/* Bottom bar */}
+        <div className="mt-12 flex flex-col gap-4 border-t border-blue-100 dark:border-white/10 pt-6 text-xs text-slate-400 dark:text-white/35 sm:flex-row sm:items-center sm:justify-between">
+          <p>&copy; {currentYear} EcomXpertStudio. Built for modern high-growth brands.</p>
+          <div className="flex gap-5">
+            <a href="#" className="transition-colors hover:text-blue-600 dark:hover:text-cyber-cyan">Privacy</a>
+            <a href="#" className="transition-colors hover:text-blue-600 dark:hover:text-cyber-cyan">Terms</a>
+            <span className="text-blue-500 dark:text-cyber-cyan/70">System Active</span>
           </div>
         </div>
       </div>
