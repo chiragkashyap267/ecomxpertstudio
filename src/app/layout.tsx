@@ -17,6 +17,8 @@ export const metadata: Metadata = {
   },
 };
 
+import Aurora from "@/components/Aurora";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -28,11 +30,21 @@ export default function RootLayout({
       className={`${inter.variable} h-full antialiased`}
       suppressHydrationWarning
     >
-      <body className="relative flex min-h-full flex-col overflow-x-hidden bg-cyber-bg transition-colors duration-300">
+      <body className="relative flex min-h-full flex-col overflow-x-hidden bg-[#020b18] transition-colors duration-300">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          {/* Global Aurora Background */}
+          <div className="fixed inset-0 z-[-1] pointer-events-none opacity-60">
+            <Aurora
+              colorStops={["#0ea5e9", "#6366f1", "#020b18"]}
+              blend={0.5}
+              amplitude={1.2}
+              speed={0.4}
+            />
+          </div>
           {children}
         </ThemeProvider>
       </body>
     </html>
   );
 }
+

@@ -59,6 +59,16 @@
   to { background-position: 56px 56px; }
 }
 
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.7; box-shadow: 0 0 20px var(--glow, rgba(14,165,233,0.5)), 0 0 60px var(--glow, rgba(14,165,233,0.25)); }
+  50%       { opacity: 1;   box-shadow: 0 0 40px var(--glow, rgba(14,165,233,0.8)), 0 0 100px var(--glow, rgba(14,165,233,0.4)); }
+}
+
+@keyframes hero-text-in {
+  from { opacity: 0; transform: translateY(40px); filter: blur(12px); }
+  to   { opacity: 1; transform: translateY(0);   filter: blur(0px); }
+}
+
 :root {
   --bg-color: #eef4fb;           /* blue-tinted page canvas */
   --card-color: #ffffff;         /* solid white cards */
@@ -339,4 +349,504 @@ html.lenis body {
     scroll-behavior: auto !important;
     transition-duration: 0.001ms !important;
   }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   HERO HEADING — Ultra luxury gradient text
+═══════════════════════════════════════════════════════════════ */
+.hero-heading-gradient {
+  background: linear-gradient(
+    135deg,
+    #e0f2fe 0%,
+    #7dd3fc 18%,
+    #38bdf8 32%,
+    #ffffff 48%,
+    #93c5fd 62%,
+    #60a5fa 78%,
+    #bfdbfe 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 5s linear infinite;
+}
+
+.hero-eyebrow-glow {
+  background: linear-gradient(90deg, #38bdf8, #818cf8, #38bdf8);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 3s linear infinite;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CENTERED HERO FAN CAROUSEL (NFT style)
+═══════════════════════════════════════════════════════════════ */
+.hero-carousel-root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  position: relative;
+  width: 100%;
+  padding-block: 24px;
+}
+
+.fan-stage {
+  position: relative;
+  height: 360px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fan-card {
+  position: absolute;
+  width: 220px;
+  height: 300px;
+  border-radius: 22px;
+  overflow: hidden;
+  cursor: pointer;
+  transform-origin: bottom center;
+  will-change: transform, opacity;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.45),
+    0 2px 8px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: box-shadow 0.4s ease;
+}
+
+.fan-card:hover {
+  box-shadow:
+    0 16px 60px rgba(0, 0, 0, 0.6),
+    0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.fan-card-img-wrap {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.fan-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s ease;
+}
+
+.fan-card:hover .fan-card-img {
+  transform: scale(1.05);
+}
+
+.fan-card-overlay {
+  position: absolute;
+  inset: 0;
+}
+
+.fan-card-badge {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 10px;
+  font-weight: 800;
+  color: #e0f2fe;
+  white-space: nowrap;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  box-shadow: 0 4px 20px rgba(14, 165, 233, 0.3);
+}
+
+.fan-card-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 16px 18px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.fan-card-label {
+  font-size: 13px;
+  font-weight: 800;
+  color: #f0f9ff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  letter-spacing: 0.02em;
+}
+
+.fan-card-stars {
+  display: flex;
+  gap: 2px;
+}
+
+.fan-card-glow-border {
+  position: absolute;
+  inset: 0;
+  border-radius: 22px;
+  border: 2px solid transparent;
+  background: linear-gradient(135deg, var(--glow, rgba(14,165,233,0.8)), transparent, var(--glow, rgba(14,165,233,0.6))) border-box;
+  -webkit-mask: linear-gradient(#000 0 0) padding-box, linear-gradient(#000 0 0);
+  mask: linear-gradient(#000 0 0) padding-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+  pointer-events: none;
+  animation: glow-pulse 2.4s ease-in-out infinite;
+}
+
+.fan-dots {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.fan-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.35);
+  border: none;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.fan-dot-active {
+  width: 28px;
+  background: linear-gradient(90deg, #38bdf8, #818cf8);
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.7);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   NEW CENTERED HERO FAN — heading above, full-width fan below
+═══════════════════════════════════════════════════════════════ */
+.hero-fan-root {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: clamp(5rem, 10vw, 8rem);
+  padding-bottom: 0;
+  overflow: hidden;
+}
+
+.hero-fan-heading-wrap {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding-inline: clamp(1rem, 4vw, 2rem);
+  position: relative;
+  z-index: 2;
+}
+
+.hero-fan-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+  border-radius: 999px;
+  padding: 6px 18px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #7dd3fc;
+  letter-spacing: 0.04em;
+}
+
+.hero-fan-pill-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #38bdf8;
+  box-shadow: 0 0 6px rgba(56, 189, 248, 0.8);
+}
+
+.hero-fan-h1 {
+  font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+  font-size: clamp(2.8rem, 7vw, 5.5rem);
+  font-weight: 900;
+  line-height: 1.0;
+  letter-spacing: -0.025em;
+  color: #ffffff;
+  text-shadow:
+    0 0 60px rgba(56, 189, 248, 0.25),
+    0 4px 24px rgba(0, 0, 0, 0.5);
+}
+
+.hero-fan-h1-accent {
+  background: linear-gradient(90deg, #a855f7 0%, #38bdf8 40%, #818cf8 70%, #c084fc 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 4s linear infinite;
+}
+
+.hero-fan-sub {
+  font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+  color: rgba(148, 163, 184, 0.85);
+  font-weight: 400;
+  line-height: 1.7;
+  max-width: 600px;
+}
+
+.hero-fan-cta-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 4px;
+}
+
+.hero-fan-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 48px;
+  padding-inline: 28px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 0 36px rgba(14, 165, 233, 0.45);
+  transition: all 0.25s ease;
+}
+.hero-fan-btn-primary:hover {
+  filter: brightness(1.12);
+  box-shadow: 0 0 52px rgba(14, 165, 233, 0.65);
+  transform: translateY(-1px);
+}
+
+.hero-fan-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 48px;
+  padding-inline: 28px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.055);
+  backdrop-filter: blur(8px);
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+.hero-fan-btn-ghost:hover {
+  border-color: rgba(56, 189, 248, 0.5);
+  color: #fff;
+  background: rgba(255, 255, 255, 0.09);
+  transform: translateY(-1px);
+}
+
+.hero-fan-stage {
+  position: relative;
+  width: 100%;
+  height: clamp(300px, 38vw, 430px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  margin-top: 8px;
+  padding-bottom: 20px;
+}
+
+.hero-fan-floor-glow {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 180px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(56, 189, 248, 0.18) 0%, rgba(99, 102, 241, 0.08) 45%, transparent 75%);
+  pointer-events: none;
+  filter: blur(20px);
+}
+
+.hero-fan-card {
+  position: absolute;
+  width: clamp(180px, 18vw, 240px);
+  height: clamp(250px, 26vw, 340px);
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  will-change: transform, opacity;
+  transform-origin: bottom center;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.55),
+    0 2px 8px rgba(0, 0, 0, 0.35);
+  transition: box-shadow 0.3s ease;
+}
+.hero-fan-card:hover {
+  box-shadow:
+    0 20px 64px rgba(0, 0, 0, 0.7),
+    0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.hero-fan-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.65s ease;
+}
+.hero-fan-card:hover .hero-fan-card-img {
+  transform: scale(1.07);
+}
+
+.hero-fan-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(3, 10, 26, 0.92) 0%, rgba(3, 10, 26, 0.18) 45%, transparent 100%);
+}
+
+.hero-fan-card-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 10px;
+  padding: 7px 12px;
+  color: #e0f2fe;
+}
+
+.hero-fan-card-badge-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #38bdf8, #818cf8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.hero-fan-card-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.hero-fan-card-label {
+  font-size: 13px;
+  font-weight: 800;
+  color: #f0f9ff;
+  letter-spacing: 0.02em;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+.hero-fan-card-more {
+  font-size: 10px;
+  font-weight: 800;
+  color: #38bdf8;
+  letter-spacing: 0.1em;
+}
+
+.hero-fan-card-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  pointer-events: none;
+  border: 2px solid transparent;
+  background:
+    linear-gradient(135deg,
+      var(--card-glow, rgba(14,165,233,0.9)),
+      rgba(255,255,255,0.05) 50%,
+      var(--card-glow, rgba(14,165,233,0.7))
+    ) border-box;
+  -webkit-mask: linear-gradient(#000 0 0) padding-box, linear-gradient(#000 0 0);
+  mask: linear-gradient(#000 0 0) padding-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+  animation: glow-pulse 2.2s ease-in-out infinite;
+}
+
+.hero-fan-nav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-block: 24px 32px;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-fan-nav-arrow {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+.hero-fan-nav-arrow:hover {
+  border-color: rgba(56, 189, 248, 0.5);
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.1);
+}
+
+.hero-fan-dots {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  max-width: 240px;
+  overflow: hidden;
+  flex-wrap: nowrap;
+}
+
+.hero-fan-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.3);
+  border: none;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.hero-fan-dot-active {
+  width: 22px;
+  background: linear-gradient(90deg, #38bdf8, #818cf8);
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.7);
 }
