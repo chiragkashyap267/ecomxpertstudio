@@ -21,7 +21,7 @@ import GlowCard from "@/components/GlowCard";
 import GSAPReveal from "@/components/GSAPReveal";
 import Magnetic from "@/components/Magnetic";
 import HeroCarousel from "@/components/HeroCarousel";
-import DomeGallery from "@/components/DomeGallery";
+import BentoGallery from "@/components/ui/bento-gallery";
 import { TestimonialsColumn } from "@/components/ui/testimonials-columns-1";
 import DynamicGridCell from "@/components/DynamicGridCell";
 import { contact, serviceSlides, testimonials } from "@/data/site";
@@ -214,12 +214,11 @@ export default function Home() {
           </Link>
         </div>
 
-        {/* DomeGallery Integration */}
-        <div className="w-full h-[600px] mt-8 rounded-3xl overflow-hidden relative shadow-2xl premium-border border-blue-200/20 dark:border-white/10">
-          <DomeGallery 
-            images={workItems.map(i => ({ src: i.img, alt: i.category }))}
-            grayscale={false}
-            overlayBlurColor="#020b18" 
+        {/* BentoGallery Integration */}
+        <div className="w-full mt-8">
+          <BentoGallery
+            images={workItems.map(i => ({ src: i.img, alt: i.category, title: i.title, category: i.category }))}
+            speed={55}
           />
         </div>
       </section>

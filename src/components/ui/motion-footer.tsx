@@ -131,10 +131,9 @@ export function CinematicFooter({
 
   useEffect(() => {
     const wrapper = wrapperRef.current;
-    const giantText = giantTextRef.current;
     const content = contentRef.current;
 
-    if (!wrapper || !giantText || !content || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (!wrapper || !content || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       return;
     }
 
@@ -142,35 +141,18 @@ export function CinematicFooter({
 
     const context = gsap.context(() => {
       gsap.fromTo(
-        giantText,
-        { yPercent: 24, scale: 0.86, opacity: 0 },
-        {
-          yPercent: 0,
-          scale: 1,
-          opacity: 1,
-          ease: "none",
-          scrollTrigger: {
-            trigger: wrapper,
-            start: "top bottom",
-            end: "bottom bottom",
-            scrub: 1,
-          },
-        },
-      );
-
-      gsap.fromTo(
         content.children,
-        { y: 42, opacity: 0 },
+        { y: 28, opacity: 0 },
         {
           y: 0,
           opacity: 1,
-          stagger: 0.08,
+          stagger: 0.06,
           ease: "power3.out",
           scrollTrigger: {
             trigger: wrapper,
-            start: "top 78%",
-            end: "top 25%",
-            scrub: 0.8,
+            start: "top 90%",
+            end: "top 50%",
+            scrub: 0.5,
           },
         },
       );

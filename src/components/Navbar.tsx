@@ -41,9 +41,8 @@ export default function Navbar() {
         {/* Brand */}
         <Link href="/" className="group relative z-50 flex items-center gap-2">
           <span className="font-display text-2xl font-black tracking-tight text-slate-900 dark:text-white transition-colors group-hover:text-blue-700 dark:group-hover:text-cyber-cyan">
-            Xpert
+            Ecom<span className="text-blue-600 dark:text-cyber-cyan">Xpert</span>Studio
           </span>
-          <span className="absolute -bottom-1 -right-2 h-2 w-2 rounded-full bg-blue-500 dark:bg-cyber-cyan" />
         </Link>
 
         {/* Desktop Nav */}
