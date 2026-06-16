@@ -22,8 +22,11 @@ import GSAPReveal from "@/components/GSAPReveal";
 import Magnetic from "@/components/Magnetic";
 import HeroCarousel from "@/components/HeroCarousel";
 import BentoGallery from "@/components/ui/bento-gallery";
+import { LogoMarquee } from "@/components/ui/logo-marquee";
 import { TestimonialsColumn } from "@/components/ui/testimonials-columns-1";
 import DynamicGridCell from "@/components/DynamicGridCell";
+import FAQSection from "@/components/ui/faq-section";
+import ContactForm from "@/components/ui/contact-form";
 import { contact, serviceSlides, testimonials } from "@/data/site";
 
 const metrics = [
@@ -105,8 +108,7 @@ export default function Home() {
 
       {/* ── HERO ──────────────────────────────────────────── */}
       <div
-        className="relative overflow-hidden w-full"
-        style={{ background: "linear-gradient(160deg, #020b18 0%, #060e23 35%, #080d22 65%, #030a17 100%)" }}
+        className="relative overflow-hidden w-full bg-[#0066cc] dark:bg-transparent dark:bg-gradient-to-br dark:from-[#020b18] dark:via-[#060e23] dark:to-[#030a17]"
       >
         {/* Ambient glow orbs */}
         <div style={{ position: "absolute", top: "-15%", left: "20%", width: "700px", height: "700px", borderRadius: "50%", background: "radial-gradient(circle, rgba(14,165,233,0.1) 0%, transparent 65%)", pointerEvents: "none" }} />
@@ -114,6 +116,9 @@ export default function Home() {
         <div style={{ position: "absolute", top: "40%", left: "5%", width: "350px", height: "350px", borderRadius: "50%", background: "radial-gradient(circle, rgba(56,189,248,0.06) 0%, transparent 65%)", pointerEvents: "none" }} />
         <HeroCarousel />
       </div>
+
+      {/* ── LOGO MARQUEE ────────────────────────────────── */}
+      <LogoMarquee />
 
       {/* ── METRICS ─────────────────────────────────────── */}
       <section className="border-y border-blue-100 dark:border-white/10 bg-white dark:bg-cyber-darker/35">
@@ -197,25 +202,28 @@ export default function Home() {
       </section>
 
       {/* ── SELECTED WORK ───────────────────────────────── */}
-      <section className="section-shell section-y">
-        <div className="mb-12 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
-          <GSAPReveal direction="up">
-            <div>
-              <span className="text-sm font-bold text-blue-600 dark:text-cyber-cyan">Selected Work</span>
-              <h2 className="mt-3 font-display text-4xl font-black text-slate-900 dark:text-white sm:text-5xl">Recent premium builds.</h2>
-            </div>
-          </GSAPReveal>
-          <Link
-            href="/portfolio"
-            className="group inline-flex h-11 w-fit items-center gap-2 rounded-lg border border-blue-200 dark:border-white/10 bg-white dark:bg-white/[0.04] px-5 text-sm font-bold text-slate-700 dark:text-white/80 shadow-sm dark:shadow-none transition-all hover:border-blue-400 dark:hover:border-cyber-cyan/45 hover:text-blue-700 dark:hover:text-white"
-          >
-            Explore Showcase
-            <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-          </Link>
+      <section className="section-y overflow-hidden">
+        {/* Header — constrained */}
+        <div className="section-shell mb-10">
+          <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+            <GSAPReveal direction="up">
+              <div>
+                <span className="text-sm font-bold text-blue-600 dark:text-cyber-cyan">Selected Work</span>
+                <h2 className="mt-3 font-display text-4xl font-black text-slate-900 dark:text-white sm:text-5xl">Recent premium builds.</h2>
+              </div>
+            </GSAPReveal>
+            <Link
+              href="/portfolio"
+              className="group inline-flex h-11 w-fit items-center gap-2 rounded-lg border border-blue-200 dark:border-white/10 bg-white dark:bg-white/[0.04] px-5 text-sm font-bold text-slate-700 dark:text-white/80 shadow-sm dark:shadow-none transition-all hover:border-blue-400 dark:hover:border-cyber-cyan/45 hover:text-blue-700 dark:hover:text-white"
+            >
+              Explore Showcase
+              <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </Link>
+          </div>
         </div>
 
-        {/* BentoGallery Integration */}
-        <div className="w-full mt-8">
+        {/* Gallery — full viewport width natively */}
+        <div className="w-full relative">
           <BentoGallery
             images={workItems.map(i => ({ src: i.img, alt: i.category, title: i.title, category: i.category }))}
             speed={55}
@@ -314,68 +322,62 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── CTA / BOOKING ───────────────────────────────── */}
-      <section className="border-y border-blue-100 dark:border-white/10 bg-blue-50 dark:bg-cyber-darker/70">
-        <div className="section-shell section-y">
-          <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+
+      {/* ── FAQ ─────────────────────────────────────────── */}
+      <FAQSection />
+
+
+      {/* ── CONTACT FORM + CTA ──────────────────────────── */}
+      <section
+        style={{
+          borderTop: "1px solid rgba(255,255,255,0.05)",
+          background: "radial-gradient(ellipse 80% 50% at 50% 100%, rgba(14,165,233,0.05) 0%, transparent 70%)",
+        }}
+      >
+        <div className="section-shell" style={{ paddingBlock: "clamp(4rem, 8vw, 8rem)" }}>
+          <div style={{ display: "grid", gap: "clamp(32px, 5vw, 64px)", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 440px), 1fr))", alignItems: "start" }}>
+
+            {/* Left — copy */}
             <GSAPReveal direction="left">
               <div>
-                <span className="text-sm font-bold text-blue-600 dark:text-cyber-cyan">Schedule Consult</span>
-                <h2 className="mt-3 max-w-xl font-display text-4xl font-black leading-tight text-slate-900 dark:text-white sm:text-5xl">
+                <span className="text-sm font-bold text-blue-600 dark:text-cyber-cyan">Start a Project</span>
+                <h2 className="mt-3 font-display text-4xl font-black leading-tight text-slate-900 dark:text-white sm:text-5xl">
                   Ready to scale your brand?
                 </h2>
-                <p className="mt-5 max-w-xl text-base leading-8 text-slate-600 dark:text-white/60">
-                  Lock in a complimentary 30-minute growth assessment. We will review your site, product visuals, and conversion path, then map the fastest premium upgrade.
+                <p className="mt-5 text-base leading-8 text-slate-600 dark:text-white/60">
+                  Lock in a complimentary 30-minute growth assessment. We will review your site, product visuals, and conversion path — then map the fastest premium upgrade.
                 </p>
-                <div className="mt-7 grid gap-3 text-sm text-slate-700 dark:text-white/70">
-                  {["Comprehensive UI/UX audit", "Conversion pathway mapping", "Web and brand launch roadmap"].map((item) => (
+                <div className="mt-8 grid gap-3 text-sm text-slate-700 dark:text-white/70">
+                  {[
+                    "Comprehensive UI/UX audit",
+                    "Conversion pathway mapping",
+                    "Web and brand launch roadmap",
+                    "No commitment — just clarity",
+                  ].map((item) => (
                     <div key={item} className="flex items-center gap-3">
-                      <CheckCircle className="h-5 w-5 text-blue-500 dark:text-cyber-cyan" />
+                      <CheckCircle className="h-5 w-5 text-blue-500 dark:text-cyber-cyan shrink-0" />
                       {item}
                     </div>
                   ))}
                 </div>
-              </div>
-            </GSAPReveal>
 
-            <GSAPReveal direction="right" delay={0.1}>
-              <div className="premium-panel premium-border rounded-lg p-5 sm:p-7">
-                <div className="flex items-center gap-4 border-b border-blue-100 dark:border-white/10 pb-5">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-blue-200 dark:border-cyber-cyan/25 bg-blue-50 dark:bg-cyber-cyan/10 text-blue-600 dark:text-cyber-cyan">
-                    <Calendar className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-slate-900 dark:text-white">Growth Assessment</h3>
-                    <p className="mt-1 text-sm text-slate-500 dark:text-white/45">30 minutes / Google Meet</p>
-                  </div>
-                </div>
-
-                <div className="mt-5 grid grid-cols-3 gap-2 text-center">
-                  {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day, index) => (
-                    <div
-                      key={day}
-                      className={`rounded-lg border px-3 py-3 ${
-                        index === 1
-                          ? "border-blue-400 dark:border-cyber-cyan/45 bg-blue-500 dark:bg-cyber-cyan/[0.12] text-white dark:text-cyber-cyan"
-                          : "border-blue-100 dark:border-white/10 bg-white dark:bg-white/[0.03] text-slate-600 dark:text-white/60"
-                      }`}
-                    >
-                      <div className="text-xs font-semibold">{day}</div>
-                      <div className="mt-1 text-lg font-black">26</div>
-                    </div>
-                  ))}
-                </div>
-
+                {/* Calendly CTA */}
                 <a
                   href={contact.calendlyUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-5 flex h-12 items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-blue-700 to-blue-500 dark:from-cyber-blue dark:to-cyber-cyan px-5 text-sm font-bold text-white shadow-[0_4px_20px_rgba(11,86,166,0.3)] dark:shadow-[0_0_28px_rgba(25,230,255,0.22)] transition-all hover:brightness-110"
+                  className="mt-8 inline-flex h-12 items-center gap-2 rounded-lg bg-gradient-to-r from-blue-700 to-blue-500 dark:from-cyber-blue dark:to-cyber-cyan px-6 text-sm font-bold text-white shadow-[0_4px_20px_rgba(11,86,166,0.3)] dark:shadow-[0_0_28px_rgba(25,230,255,0.22)] transition-all hover:brightness-110"
                 >
-                  Reserve Consultation
+                  <Calendar className="h-4 w-4" />
+                  Book Free 30-min Call
                   <ArrowUpRight className="h-4 w-4" />
                 </a>
               </div>
+            </GSAPReveal>
+
+            {/* Right — contact form */}
+            <GSAPReveal direction="right" delay={0.1}>
+              <ContactForm />
             </GSAPReveal>
           </div>
         </div>

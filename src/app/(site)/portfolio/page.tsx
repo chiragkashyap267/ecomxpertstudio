@@ -1,7 +1,6 @@
 "use client";
 
-import { useMemo, useState, useEffect } from "react";
-import Image from "next/image";
+import { useMemo, useState, useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight, CheckCircle, Filter, X } from "lucide-react";
 import GlowCard from "@/components/GlowCard";
@@ -24,6 +23,9 @@ export default function PortfolioPage() {
   const [projects, setProjects] = useState<WorkItem[]>([]);
   const [activeFilter, setActiveFilter] = useState("All");
   const [selectedProject, setSelectedProject] = useState<WorkItem | null>(null);
+  const scrollRafRef = useRef<number | null>(null);
+  const pausedRef = useRef(false);
+  const resumeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     fetch("/api/work")
@@ -31,6 +33,46 @@ export default function PortfolioPage() {
       .then((data: WorkItem[]) => setProjects(data))
       .catch(() => setProjects([]));
   }, []);
+
+  // Faster auto-scroll, loops back to top
+  useEffect(() => {
+    // Small delay so images start loading first
+    const startDelay = setTimeout(() => {
+      scrollRafRef.current = window.setInterval(() => {
+        if (!pausedRef.current && !selectedProject) {
+          const maxScroll = document.body.scrollHeight - window.innerHeight;
+          
+          if (window.scrollY >= maxScroll - 2) {
+            // Smoothly return to top
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          } else {
+            // Native scrollBy integrates with smooth scroll libraries
+            window.scrollBy({ top: 1, left: 0, behavior: "instant" as ScrollBehavior });
+          }
+        }
+      }, 15); // ~66px per second
+    }, 800);
+
+    // Pause auto-scroll ONLY on active scrolling, not on hover/click
+    const pause = () => {
+      pausedRef.current = true;
+      if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current);
+      resumeTimerRef.current = setTimeout(() => {
+        pausedRef.current = false;
+      }, 1500); // Shorter pause
+    };
+
+    window.addEventListener("wheel", pause, { passive: true });
+    window.addEventListener("touchstart", pause, { passive: true });
+
+    return () => {
+      clearTimeout(startDelay);
+      if (scrollRafRef.current) clearInterval(scrollRafRef.current);
+      if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current);
+      window.removeEventListener("wheel", pause);
+      window.removeEventListener("touchstart", pause);
+    };
+  }, [selectedProject]);
 
   const categories = useMemo(() => {
     const cats = Array.from(new Set(projects.map((p) => p.category)));

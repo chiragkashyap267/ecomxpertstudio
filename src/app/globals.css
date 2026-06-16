@@ -70,15 +70,15 @@
 }
 
 :root {
-  --bg-color: #eef4fb;           /* blue-tinted page canvas */
-  --card-color: #ffffff;         /* solid white cards */
-  --dark-color: #ffffff;         /* nav / panel surface */
-  --darker-color: #dbeafe;       /* blue-50 alternate section */
-  --border-color: rgba(11, 86, 166, 0.18);
-  --border-active-color: rgba(11, 86, 166, 0.45);
-  --text-color: #0f172a;         /* slate-900 – maximum contrast */
-  --text-muted: #334155;         /* slate-700 – readable body */
-  --grid-line: rgba(11, 86, 166, 0.07);
+  --bg-color: #ffffff;
+  --card-color: #ffffff;
+  --dark-color: #ffffff;
+  --darker-color: #f8fafc;
+  --border-color: rgba(37, 99, 235, 0.15);
+  --border-active-color: rgba(37, 99, 235, 0.5);
+  --text-color: #1e293b;
+  --text-muted: #475569;
+  --grid-line: rgba(37, 99, 235, 0.05);
   color-scheme: light;
 }
 
@@ -560,15 +560,15 @@ html.lenis body {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(12px);
+  padding: 6px 16px;
   border-radius: 999px;
-  padding: 6px 18px;
-  font-size: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  font-size: 14px;
   font-weight: 700;
-  color: #7dd3fc;
-  letter-spacing: 0.04em;
+  text-decoration: none;
+  transition: all 0.25s ease;
 }
 
 .hero-fan-pill-dot {
@@ -580,11 +580,11 @@ html.lenis body {
 }
 
 .hero-fan-h1 {
-  font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
-  font-size: clamp(2.8rem, 7vw, 5.5rem);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
   font-weight: 900;
-  line-height: 1.0;
-  letter-spacing: -0.025em;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin: 0 0 20px;
   color: #ffffff;
   text-shadow:
     0 0 60px rgba(56, 189, 248, 0.25),
@@ -601,8 +601,8 @@ html.lenis body {
 }
 
 .hero-fan-sub {
-  font-size: clamp(0.9rem, 1.5vw, 1.1rem);
-  color: rgba(148, 163, 184, 0.85);
+  font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+  color: rgba(255, 255, 255, 0.7);
   font-weight: 400;
   line-height: 1.7;
   max-width: 600px;
@@ -624,17 +624,17 @@ html.lenis body {
   height: 48px;
   padding-inline: 28px;
   border-radius: 10px;
-  background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%);
-  color: #fff;
+  background: #ffffff;
+  color: #020617;
   font-size: 14px;
   font-weight: 700;
   text-decoration: none;
-  box-shadow: 0 0 36px rgba(14, 165, 233, 0.45);
+  box-shadow: 0 0 36px rgba(255, 255, 255, 0.2);
   transition: all 0.25s ease;
 }
 .hero-fan-btn-primary:hover {
-  filter: brightness(1.12);
-  box-shadow: 0 0 52px rgba(14, 165, 233, 0.65);
+  filter: brightness(0.9);
+  box-shadow: 0 0 52px rgba(255, 255, 255, 0.35);
   transform: translateY(-1px);
 }
 
@@ -648,7 +648,7 @@ html.lenis body {
   border: 1px solid rgba(255, 255, 255, 0.14);
   background: rgba(255, 255, 255, 0.055);
   backdrop-filter: blur(8px);
-  color: rgba(255, 255, 255, 0.82);
+  color: var(--text-muted);
   font-size: 14px;
   font-weight: 700;
   text-decoration: none;
@@ -656,8 +656,8 @@ html.lenis body {
 }
 .hero-fan-btn-ghost:hover {
   border-color: rgba(56, 189, 248, 0.5);
-  color: #fff;
-  background: rgba(255, 255, 255, 0.09);
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.15);
   transform: translateY(-1px);
 }
 
@@ -694,11 +694,13 @@ html.lenis body {
   cursor: pointer;
   will-change: transform, opacity;
   transform-origin: bottom center;
-  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: rgba(14, 21, 38, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow:
     0 10px 40px rgba(0, 0, 0, 0.55),
     0 2px 8px rgba(0, 0, 0, 0.35);
   transition: box-shadow 0.3s ease;
+  color: #ffffff;
 }
 .hero-fan-card:hover {
   box-shadow:
@@ -730,7 +732,7 @@ html.lenis body {
   display: flex;
   align-items: center;
   gap: 8px;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.25);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.22);
@@ -808,9 +810,9 @@ html.lenis body {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(255, 255, 255, 0.06);
-  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
   font-size: 22px;
   line-height: 1;
   cursor: pointer;
@@ -838,7 +840,7 @@ html.lenis body {
   width: 5px;
   height: 5px;
   border-radius: 999px;
-  background: rgba(148, 163, 184, 0.3);
+  background: rgba(255, 255, 255, 0.3);
   border: none;
   cursor: pointer;
   flex-shrink: 0;

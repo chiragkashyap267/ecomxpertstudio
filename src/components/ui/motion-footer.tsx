@@ -139,27 +139,33 @@ export function CinematicFooter({
 
     gsap.registerPlugin(ScrollTrigger);
 
+    // Set initial state — hidden before animation fires
+    gsap.set(content.children, { y: 24, opacity: 0 });
+
     const context = gsap.context(() => {
-      gsap.fromTo(
-        content.children,
-        { y: 28, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          stagger: 0.06,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: wrapper,
-            start: "top 90%",
-            end: "top 50%",
-            scrub: 0.5,
-          },
+      gsap.to(content.children, {
+        y: 0,
+        opacity: 1,
+        stagger: 0.07,
+        duration: 0.75,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: wrapper,
+          // Fire as soon as ANY part of the footer enters the viewport
+          start: "top 98%",
+          toggleActions: "play none none none",
+          once: true,
         },
-      );
+      });
     }, wrapper);
 
-    ScrollTrigger.refresh();
-    return () => context.revert();
+    // Force a refresh so positions are correct after hydration
+    const timer = setTimeout(() => ScrollTrigger.refresh(), 200);
+
+    return () => {
+      clearTimeout(timer);
+      context.revert();
+    };
   }, []);
 
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
@@ -185,7 +191,7 @@ export function CinematicFooter({
             <h2 className={`${styles.metallicText} mt-3 font-display text-5xl font-black tracking-[-0.07em] sm:text-7xl lg:text-8xl`}>
               {brand}
             </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-sm leading-6 text-slate-600 dark:text-white/55 sm:text-base sm:leading-7">
+            <p className="mx-auto mt-4 max-w-2xl text-sm leading-6 text-slate-600 dark:text-white/85 sm:text-base sm:leading-7">
               {description}
             </p>
           </div>
@@ -206,7 +212,7 @@ export function CinematicFooter({
               <h3 className={styles.panelTitle}>Capabilities</h3>
               <ul className="mt-4 grid gap-2.5">
                 {capabilities.map((item) => (
-                  <li key={item} className="flex items-center gap-2 text-xs text-slate-600 dark:text-white/55 sm:text-sm">
+                  <li key={item} className="flex items-center gap-2 text-xs text-slate-700 dark:text-white/85 sm:text-sm">
                     <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-blue-500 shadow-[0_0_10px_rgba(14,165,233,0.65)]" />
                     {item}
                   </li>
